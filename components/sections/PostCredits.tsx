@@ -102,7 +102,7 @@ export function PostCredits() {
                   </div>
 
                   <CreditBlock label="Filmed on location at">
-                    Audena · Cavebeat · the origin builds
+                    The origin builds, and everywhere code ships.
                   </CreditBlock>
                   <CreditBlock label="Built with">
                     Next.js · React · Framer Motion · Tailwind · TypeScript
