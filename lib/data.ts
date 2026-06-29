@@ -303,3 +303,15 @@ export const SOCIALS: Social[] = [
     handle: "Sheershatrishi@gmail.com",
   },
 ];
+
+/** Post-credits crawl — the one-man-team gag (every role is him). */
+export const CREDITS: { role: string; name: string }[] = [
+  { role: "Directed by", name: "Sheersh Atrishi" },
+  { role: "Engineering Lead", name: "Sheersh Atrishi" },
+  { role: "Architecture & Infrastructure", name: "Sheersh Atrishi" },
+  { role: "Frontend", name: "Sheersh Atrishi" },
+  { role: "Backend & Data", name: "Sheersh Atrishi" },
+  { role: "AI & Tooling", name: "Sheersh Atrishi" },
+  { role: "Production Resilience", name: "Sheersh Atrishi" },
+  { role: "Catering", name: "also Sheersh Atrishi" },
+];

@@ -11,7 +11,7 @@ const LINE = ["Marvel", "Studios", "created", "my", "portfolio?"];
  */
 export function WhatIfTitle({ onComplete }: { onComplete?: () => void }) {
   useEffect(() => {
-    const t = setTimeout(() => onComplete?.(), 3200);
+    const t = setTimeout(() => onComplete?.(), 6000);
     return () => clearTimeout(t);
   }, [onComplete]);
 

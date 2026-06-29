@@ -125,6 +125,16 @@ body {
   line-height: 0.94;
 }
 
+/* film-style end-credits crawl: rise from below the viewport up past the top */
+@keyframes credits-roll {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
 @keyframes caret-blink {
   0%,
   49% {

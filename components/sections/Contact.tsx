@@ -1,5 +1,6 @@
 import { PERSON, SOCIALS } from "@/lib/data";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { PostCredits } from "@/components/sections/PostCredits";
 
 export function Contact() {
   return (
@@ -49,6 +50,10 @@ export function Contact() {
             </span>
           </a>
         ))}
+      </RevealOnScroll>
+
+      <RevealOnScroll delay={0.15}>
+        <PostCredits />
       </RevealOnScroll>
 
       <p className="mt-20 font-serif text-[0.62rem] uppercase tracking-[0.34em] text-paper-mute">

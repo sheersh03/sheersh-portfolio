@@ -1,7 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { asset } from "@/lib/asset";
 import { IntroVideo } from "./IntroVideo";
 import { WhatIfTitle } from "./WhatIfTitle";
 import { CaptainShield } from "./CaptainShield";
@@ -12,7 +13,7 @@ import { setEnabled } from "@/lib/sound";
 
 const SESSION_KEY = "sheersh_intro_played";
 
-type Phase = "cover" | "gate" | "whatif" | "video" | "out" | "gone";
+type Phase = "cover" | "gate" | "whatif" | "blackout" | "video" | "out" | "gone";
 
 export function MarvelIntro({ onDone }: { onDone?: () => void }) {
   const [phase, setPhase] = useState<Phase>("cover");
@@ -68,6 +69,35 @@ export function MarvelIntro({ onDone }: { onDone?: () => void }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [phase, finish]);
 
+  // Avengers theme on the "What If" beat. The shield tap already granted the
+  // audio gesture, so this plays; it stops when the beat hands off to the video.
+  const themeRef = useRef<HTMLAudioElement | null>(null);
+  useEffect(() => {
+    if (phase !== "whatif") return;
+    const a = new Audio(asset("/audio/avengers.mp3"));
+    a.volume = 0.75;
+    themeRef.current = a;
+    void a.play().catch(() => {});
+    return () => {
+      // gentle fade so the hand-off to the video isn't an abrupt cut
+      const fade = setInterval(() => {
+        if (a.volume > 0.08) a.volume -= 0.08;
+        else {
+          clearInterval(fade);
+          a.pause();
+        }
+      }, 40);
+      themeRef.current = null;
+    };
+  }, [phase]);
+
+  // A 2-second black, silent beat between the "What If" line and the video.
+  useEffect(() => {
+    if (phase !== "blackout") return;
+    const t = setTimeout(() => setPhase("video"), 2000);
+    return () => clearTimeout(t);
+  }, [phase]);
+
   // lock scroll while the intro covers the page
   useEffect(() => {
     if (phase === "gone") return;
@@ -116,9 +146,10 @@ export function MarvelIntro({ onDone }: { onDone?: () => void }) {
           {phase === "gate" && (
             <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-5 px-6 py-12">
               <ThoughtBubble>
-                Hi, this is Captain America &mdash;{" "}
+                Bored of reviewing boring portfolios? Let me fix that for you.
+                Hi, this is Captain America&hellip;{" "}
                 <span className="text-gold-bright">
-                  without super soldier serum
+                  without the super soldier serum
                 </span>{" "}
                 😂
               </ThoughtBubble>
@@ -181,14 +212,14 @@ export function MarvelIntro({ onDone }: { onDone?: () => void }) {
                 className="marvel-title text-4xl text-paper md:text-6xl"
               />
               <span className="marvel-title max-w-lg px-6 text-center text-base tracking-[0.08em] text-paper-dim md:text-lg">
-                First time? Believe me &mdash; you&apos;re not ready for
+                First time? Believe me, you&apos;re not ready for
                 this&hellip;
               </span>
             </div>
           )}
 
           {phase === "whatif" && (
-            <WhatIfTitle onComplete={() => setPhase("video")} />
+            <WhatIfTitle onComplete={() => setPhase("blackout")} />
           )}
         </motion.div>
       )}
