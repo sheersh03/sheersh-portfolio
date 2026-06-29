@@ -45,15 +45,31 @@ const display = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Sheersh Atrishi — Engineer & Builder",
+  title: "Sheersh Atrishi · Engineer & Builder",
   description:
-    "The cinematic portfolio of Sheersh Atrishi — software developer and AI strategist. Built across Audena, Cavebeat, and beyond.",
+    "The cinematic portfolio of Sheersh Atrishi, software developer and AI strategist. Built across Audena, Cavebeat, and beyond.",
   metadataBase: new URL("https://sheersh03.github.io/sheersh-portfolio"),
   openGraph: {
-    title: "Sheersh Atrishi — Engineer & Builder",
+    title: "Sheersh Atrishi · Engineer & Builder",
     description:
-      "Software developer + AI strategist. A career in Phases — from foundations to Cavebeat to Audena.",
+      "A cinematic, Marvel-homage portfolio. Intro sequence, character reels, an Infinity-Stone scroll, and a full post-credits scene. Built, not generated.",
     type: "website",
+    url: "https://sheersh03.github.io/sheersh-portfolio/",
+    images: [
+      {
+        url: "https://sheersh03.github.io/sheersh-portfolio/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Sheersh Atrishi, cinematic portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sheersh Atrishi · Engineer & Builder",
+    description:
+      "A cinematic, Marvel-homage portfolio with a post-credits scene. Built, not generated.",
+    images: ["https://sheersh03.github.io/sheersh-portfolio/og.jpg"],
   },
 };
 
