@@ -7,6 +7,7 @@ import {
   Plus_Jakarta_Sans,
 } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 
 const title = Bebas_Neue({
   weight: "400",
@@ -66,7 +67,10 @@ export default function RootLayout({
       lang="en"
       className={`${title.variable} ${impact.variable} ${serif.variable} ${body.variable} ${display.variable}`}
     >
-      <body className="grain">{children}</body>
+      <body className="grain">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
