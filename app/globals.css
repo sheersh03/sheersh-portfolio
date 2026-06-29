@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Cinematic ink */
+  --ink: #08080a;
+  --ink-2: #0e0e12;
+  --panel: #131319;
+
+  /* Marvel red accent (token names kept as --gold* to avoid a site-wide rename) */
+  --gold: #ed1d24;
+  --gold-bright: #ff4b4b;
+  --gold-deep: #a30e14;
+  /* RGB channels of the above — Tailwind uses these so opacity modifiers
+     (text-gold/60, border-gold/40, …) resolve. Keep in sync with the hex above. */
+  --gold-rgb: 237 29 36;
+  --gold-bright-rgb: 255 75 75;
+  --gold-deep-rgb: 163 14 20;
+
+  /* Paper / text on ink */
+  --paper: #f4f2ec;
+  --paper-dim: #b8b4ac;
+  --paper-mute: #7c7a74;
+
+  /* Lines */
+  --line: rgba(244, 242, 236, 0.1);
+  --line-strong: rgba(244, 242, 236, 0.2);
+
+  /* Spectrum — reddened to the Marvel palette (no rainbow) */
+  --spectrum: linear-gradient(
+    100deg,
+    #ff7a3d 0%,
+    #ff2d2d 30%,
+    #ed1d24 55%,
+    #b0151a 80%,
+    #ff4b4b 100%
+  );
+
+  --gold-grad: linear-gradient(
+    180deg,
+    var(--gold-bright) 0%,
+    var(--gold) 45%,
+    var(--gold-deep) 100%
+  );
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Film-grain texture overlay (subtle, behind everything) */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Gold gradient text fill */
+.gold-text {
+  background: var(--gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Title-card lettering — Saira Condensed "marvel" poster face site-wide (homage stand-in) */
+.titlecard {
+  font-family: var(--font-impact), "Arial Narrow", Impact, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 0.9;
+}
+
+.eyebrow {
+  font-family: var(--font-impact), "Arial Narrow", Impact, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.32em;
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+
+/* MCU-style poster lettering (homage — Saira Condensed stands in for the licensed face) */
+.marvel-title {
+  font-family: var(--font-impact), "Arial Narrow", Impact, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 0.94;
+}
+
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+.tw-caret {
+  animation: caret-blink 1s steps(1) infinite;
+  color: var(--gold);
+}
+
+/* Thin gold hairline divider */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold) 50%,
+    transparent
+  );
+}
+
+/* Spectrum hairline (used on phase dividers) */
+.spectrum-rule {
+  height: 2px;
+  background: var(--spectrum);
+  opacity: 0.85;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gold-deep);
+  border-radius: 6px;
+}
